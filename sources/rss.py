@@ -20,12 +20,18 @@ def fetch_articles(url, source='dailycal'):
     d = feedparser.parse(url)
     articles = []
     for entry in d.entries:
+        if source == 'dailycal':
+            summary = clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip()
+            summary = ' '.join(summary.split('\n')[1:]).strip()
+        else:
+            summary = clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip()
+
         articles.append({
             'title': entry['title'],
             'url': entry['link'],
             'date': mktime(entry['published_parsed']),
             'author': entry['author'],
-            'summary': clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip(),
+            'summary': summary,
             'content': clean('\n'.join([x.value for x in entry.content])).strip() if source == 'dailycal' else None
         })
 
