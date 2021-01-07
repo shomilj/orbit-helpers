@@ -22,7 +22,7 @@ def fetch_articles(url, source='dailycal'):
     for entry in d.entries:
         articles.append({
             'title': entry['title'],
-            'url':a entry['link'],
+            'url': entry['link'],
             'date': mktime(entry['published_parsed']),
             'author': entry['author'],
             'summary': clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip(),
