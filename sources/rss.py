@@ -21,15 +21,17 @@ def fetch_articles(url, source='dailycal'):
     articles = []
     for entry in d.entries:
         if source == 'dailycal':
-            summary = clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip()
+            summary = clean(entry['summary']).replace(
+                'Read More…', '').replace('The Daily Californian', '').strip()
             summary = ' '.join(summary.split('\n')[1:]).strip()
         else:
-            summary = clean(entry['summary']).replace('Read More…', '').replace('The Daily Californian', '').strip()
+            summary = clean(entry['summary']).replace(
+                'Read More…', '').replace('The Daily Californian', '').strip()
 
         articles.append({
             'title': entry['title'],
             'url': entry['link'],
-            'date': mktime(entry['published_parsed'] * 1000),
+            'date': mktime(entry['published_parsed']) * 1000,
             'author': entry['author'],
             'summary': summary,
             'content': clean('\n'.join([x.value for x in entry.content])).strip() if source == 'dailycal' else None
