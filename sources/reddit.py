@@ -14,8 +14,8 @@ def fetch_reddit():
             continue
         else:
             posts.append({
-                'title': h.handle(post['title']),
-                'text': h.handle(post['selftext']),
+                'title': h.handle(post.get('title', '')).strip(),
+                'text': h.handle(post.get('selftext', '')).strip(),
                 'author': post['author'],
                 'created': post['created_utc'] * 1000,
                 'url': post['url'],
