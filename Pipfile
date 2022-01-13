@@ -11,6 +11,10 @@ requests = "*"
 ics = "*"
 feedparser = "*"
 html2text = "*"
+piazza-api = "*"
+ipykernel = "*"
+python-dotenv = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.8"

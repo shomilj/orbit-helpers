@@ -1,6 +1,8 @@
 import requests
 import json
+import html2text
 
+h = html2text.HTML2Text()
 
 def fetch_reddit():
     data = requests.get('https://www.reddit.com/r/berkeley.json',
@@ -12,8 +14,8 @@ def fetch_reddit():
             continue
         else:
             posts.append({
-                'title': post['title'],
-                'text': post['selftext'],
+                'title': h.handle(post.get('title', '')).strip(),
+                'text': post.get('selftext', '').strip(),
                 'author': post['author'],
                 'created': post['created_utc'] * 1000,
                 'url': post['url'],
