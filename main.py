@@ -3,6 +3,7 @@ import json
 from sources.reddit import fetch_reddit
 from sources.calendar import fetch_calendar
 from sources.rss import fetch_articles
+from sources.covid import fetch_campus_covid_data
 
 # gcloud functions deploy orbit_api --runtime python38 --trigger-http --allow-unauthenticated
 
@@ -37,5 +38,7 @@ def orbit_api(request):
         return fetch_articles(url=request['url'], source='dailycal')
     elif source == 'berkeleyside':
         return fetch_articles(url=request['url'], source='berkeleyside')
+    elif source == 'campus_covid':
+        return fetch_campus_covid_data()
     else:
         return json.dumps({'error': 'Unknown route.'})
